@@ -80,7 +80,7 @@ pipeline {
                 script {
 
                     withDockerRegistry(
-                        credentialsId: 'docker-creds',
+                        credentialsId: 'docker-cred',
                         toolName: 'docker'
                     ) {
 
@@ -88,13 +88,13 @@ pipeline {
                         echo "Building Docker image..."
 
                         docker build --no-cache \
-                        -t subhashrokkala/bms:latest \
+                        -t jogad/bms:latest \
                         -f bookmyshow-app/Dockerfile \
                         bookmyshow-app
 
                         echo "Pushing Docker image..."
 
-                        docker push subhashrokkala/bms:latest
+                        docker push jogad/bms:latest
                         '''
                     }
                 }
@@ -103,7 +103,7 @@ pipeline {
 
         stage('Trivy Image Scan') {
             steps {
-                sh 'trivy image subhashrokkala/bms:latest > trivyimage.txt'
+                sh 'trivy image jogad/bms:latest > trivyimage.txt'
             }
         }
 
@@ -162,7 +162,7 @@ pipeline {
                 </a></p>
                 """,
 
-                to: 'mr.siddu1432@gmail.com',
+                to: 'jogadinesh8@gmail.com',
 
                 attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
             )
